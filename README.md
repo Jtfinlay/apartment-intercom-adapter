@@ -11,6 +11,7 @@ There's also a simple admin interface to update the phone numbers.
 To get going:
 ```shell
 $ git clone git://github.com/afontaine/apartment-intercom-adapter.git
+$ bundle
 $ rake
 $ rackup
 ```
