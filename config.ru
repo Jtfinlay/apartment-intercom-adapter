@@ -20,6 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+#\ -o 0.0.0.0 -p 80
 
 require_relative './app'
 abort('Missing config file. ' \

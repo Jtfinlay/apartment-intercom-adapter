@@ -19,6 +19,11 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+#
+#
+# Authors:
+#  - Andrew Fontaine
+#  - James Finlay
 
 require 'json'
 require 'bundler'
@@ -26,17 +31,19 @@ Bundler.require(:sinatra)
 
 require_relative './helpers/twilio_helper'
 require_relative './helpers/authentication_helper'
+require_relative './helpers/mobile_helper'
 
 module ApartmentIntercomAdapter
   class Application < Sinatra::Base
     register Sinatra::ConfigFile
     register Sinatra::Namespace
     register Sinatra::AssetPipeline
-    helpers TwilioHelper, AuthenticationHelper
+    helpers TwilioHelper, AuthenticationHelper, MobileHelper
 
     config_file 'config.yml'
     configure do
       enable :sessions
+      set :server_version, '0.0.2'
       set :assets_precompile, %w(application.js application.css)
       RailsAssets.load_paths.each do |path|
         settings.sprockets.append_path(path)
@@ -98,6 +105,13 @@ module ApartmentIntercomAdapter
         content_type :json
         settings.numbers.delete(params[:number])
         settings.numbers.to_json
+      end
+    end
+
+    namespace '/mobile' do
+      get '/hello', provides: :json do
+        content_type :json
+        hello.to_json
       end
     end
 
