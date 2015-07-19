@@ -113,6 +113,11 @@ module ApartmentIntercomAdapter
         content_type :json
         hello.to_json
       end
+
+      post '/checknumber', provides: :json do
+        content_type :json
+        {exists: settings.numbers.include?(params[:number])}.to_json
+      end
     end
 
     get '/' do

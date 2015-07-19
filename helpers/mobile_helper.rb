@@ -24,7 +24,8 @@ module ApartmentIntercomAdapter
   module MobileHelper
     
   	def hello
-  		return { server_version: settings.version,  setup: File.file?('config.yml') }
+  		return { server_version: settings.server_version,  setup: File.file?('config.yml') }
   	end
+
   end
 end
