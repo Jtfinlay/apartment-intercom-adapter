@@ -114,10 +114,23 @@ module ApartmentIntercomAdapter
         hello.to_json
       end
 
-      post '/checknumber', provides: :json do
+      post '/check_number', provides: :json do
         content_type :json
         {exists: settings.numbers.include?(params[:number])}.to_json
       end
+
+      post '/add_number', provides: :json do
+        content_type :json
+        settings.numbers << params[:number]
+        {success: true}.to_json
+      end
+
+      post '/remove_number', provides: :json do
+        content_type :json
+        settings.numbers.delete(params[:number])
+        {success: true}.to_json
+      end
+
     end
 
     get '/' do
